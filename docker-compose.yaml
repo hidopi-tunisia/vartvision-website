@@ -17,27 +17,27 @@ services:
   # phpmyadmin
   vart_phpmyadmin:
     depends_on:
-      - db
+      - vart_db
     image: phpmyadmin/phpmyadmin
     restart: always
     ports:
       - '9001:80'
     environment:
-      PMA_HOST: db
+      PMA_HOST: vart_db
       MYSQL_ROOT_PASSWORD: password 
     networks:
       - wpsite
   # Wordpress
   vart_wordpress:
     depends_on:
-      - db
+      - vart_db
     image: wordpress:latest
     ports:
       - '9000:80'
     restart: always
     volumes: ['./:/var/www/html']
     environment:
-      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_HOST: vart_db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     networks:
