@@ -39,7 +39,7 @@ services:
     restart: always
     volumes: ['./:/var/www/html']
     environment:
-      WORDPRESS_DB_HOST: vart_db:3307
+      WORDPRESS_DB_HOST: vart_db:3306
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     networks:
