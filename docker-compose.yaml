@@ -3,9 +3,9 @@ version: '3'
 services:
   # Database
   vart_db:
-    image: mysql:5.7
+    image: vart_mysql:5.7
     volumes:
-      - db_data:/var/lib/mysql
+      - vart_db_data:/var/lib/mysql
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: password
@@ -13,12 +13,12 @@ services:
       MYSQL_USER: wordpress
       MYSQL_PASSWORD: wordpress
     networks:
-      - wpsite
+      - wpvartsite
   # phpmyadmin
   vart_phpmyadmin:
     depends_on:
       - vart_db
-    image: phpmyadmin/phpmyadmin
+    image: vart_phpmyadmin/phpmyadmin
     restart: always
     ports:
       - '9001:80'
@@ -26,18 +26,18 @@ services:
       PMA_HOST: vart_db
       MYSQL_ROOT_PASSWORD: password 
     networks:
-      - wpsite
+      - wpvartsite
   # Wordpress
   vart_wordpress:
     depends_on:
       - vart_db
-    image: wordpress:latest
+    image: vart_wordpress:latest
     ports:
       - '9000:80'
     restart: always
     volumes: ['./:/var/www/html']
     environment:
-      WORDPRESS_DB_HOST: vart_db:3306
+      WORDPRESS_DB_HOST: vart_db:3307
       WORDPRESS_DB_USER: wordpress
       WORDPRESS_DB_PASSWORD: wordpress
     networks:
