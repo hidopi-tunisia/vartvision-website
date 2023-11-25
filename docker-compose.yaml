@@ -14,6 +14,8 @@ services:
       MYSQL_PASSWORD: wordpress
     networks:
       - wpvartsite
+    ports:
+      - '3307:3306'
   # phpmyadmin
   vart_phpmyadmin:
     depends_on:
